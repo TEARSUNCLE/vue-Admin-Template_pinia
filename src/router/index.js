@@ -6,6 +6,11 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
+// 动态路由
+export const asyncRoutes = [
+
+]
+
 export const constantRoutes = [
   {
     path: '/login',
@@ -60,7 +65,8 @@ export const constantRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
+  // routes:constantRoutes,
+  routes: [...constantRoutes]
 })
 
 const router = createRouter()
