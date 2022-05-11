@@ -48,14 +48,14 @@ const actions = {
     // store.commit('setLoginTime')
   },
 
-  // userLogout: async(store) => {
-  //   // 删token
-  //   await store.commit('storeRemoveToken')
-  //   // 删信息
-  //   await store.commit('removeUserInfo')
-  //   // 删时间
-  //   await store.commit('removeLoginTime')
-  // },
+  userLogout: async(store) => {
+    // 删token
+    await store.commit('storeRemoveToken')
+    // 删信息
+    // await store.commit('removeUserInfo')
+    // 删时间
+    // await store.commit('removeLoginTime')
+  },
   // getUserInfo: async(store, val) => {
   //   const tmp = await getUserById(val)
   //   store.commit('updateUserInfo', tmp)

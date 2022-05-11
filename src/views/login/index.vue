@@ -87,7 +87,6 @@ export default {
 
     handleLogin() {
       this.$refs.ruleForm.validate(async valid => {
-        console.log(91,valid);
         if (valid) {
           try {
             // 验证完成后的操作
@@ -95,9 +94,8 @@ export default {
             await this.$store.dispatch('user/userLogin', this.ruleForm)
             this.$message.success('登录成功，正在跳转...')
             this.$router.push('/')
-            console.log(98,this.$store.state.token);
           } catch (error) {
-            console.log(99,error);
+            console.log(98,error);
             this.$message.error('用户名或密码错误')
             this.loading = false
           }
@@ -107,14 +105,6 @@ export default {
         }
       })
     }
-
-  //  async handleLogin() {
-    //  await this.$refs.ruleForm.validate()
-    //  const res = await loginApi(this.ruleForm)
-    //  await this.$store.dispatch('user/userLogin',this.ruleForm)
-     
-      //  await this.$store.dispatch('user/SET_TOKEN',res.token)
-    // }
   }
 }
 </script>
