@@ -1,97 +1,69 @@
-import { login, logout, getInfo } from '@/api/user'
+// 用户相关信息的VUEX
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { resetRouter } from '@/router'
+import { loginApi } from '@/api/user'
 
-const getDefaultState = () => {
-  return {
-    token: getToken(),
-    name: '',
-    avatar: ''
-  }
+const state = {
+  token: getToken() || '',
+  // userId: localStorage.getItem('userId') || null,
+  // userInfo: {}
 }
-
-const state = getDefaultState()
-
 const mutations = {
-  RESET_STATE: (state) => {
-    Object.assign(state, getDefaultState())
+  storeSetToken: (state, val) => {
+    setToken(val)
+    state.token = val
   },
-  SET_TOKEN: (state, token) => {
-    state.token = token
+  // setUserInfo: (state, val) => {
+  //   state.userInfo = val
+  //   state.userId = val.id
+  //   localStorage.setItem('userId', val.id)
+  // },
+  storeRemoveToken: (state) => {
+    state.token = ''
+    removeToken()
   },
-  SET_NAME: (state, name) => {
-    state.name = name
-  },
-  SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
-  }
+  // updateUserInfo: (state, val) => {
+  //   state.userInfo = val
+  // },
+  // removeUserInfo: (state) => {
+  //   state.userInfo = {}
+  //   state.userId = null
+  //   localStorage.removeItem('userId')
+  // },
+  // setLoginTime: () => {
+  //   setTimeStamp()
+  // },
+  // removeLoginTime: () => {
+  //   removeTime()
+  // }
 }
 
 const actions = {
-  // user login
-  login({ commit }, userInfo) {
-    const { username, password } = userInfo
-    return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        commit('SET_TOKEN', data.token)
-        setToken(data.token)
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
+  userLogin: async(store, val) => {
+    const tmp = await loginApi(val)
+    // 存token
+    store.commit('storeSetToken', tmp.token)
+    // 存信息
+    // store.commit('setUserInfo', tmp.user)
+    // 存时间
+    // store.commit('setLoginTime')
   },
 
-  // get user info
-  getInfo({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
-        const { data } = response
-
-        if (!data) {
-          return reject('Verification failed, please Login again.')
-        }
-
-        const { name, avatar } = data
-
-        commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
-        resolve(data)
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-
-  // user logout
-  logout({ commit, state }) {
-    return new Promise((resolve, reject) => {
-      logout(state.token).then(() => {
-        removeToken() // must remove  token  first
-        resetRouter()
-        commit('RESET_STATE')
-        resolve()
-      }).catch(error => {
-        reject(error)
-      })
-    })
-  },
-
-  // remove token
-  resetToken({ commit }) {
-    return new Promise(resolve => {
-      removeToken() // must remove  token  first
-      commit('RESET_STATE')
-      resolve()
-    })
-  }
+  // userLogout: async(store) => {
+  //   // 删token
+  //   await store.commit('storeRemoveToken')
+  //   // 删信息
+  //   await store.commit('removeUserInfo')
+  //   // 删时间
+  //   await store.commit('removeLoginTime')
+  // },
+  // getUserInfo: async(store, val) => {
+  //   const tmp = await getUserById(val)
+  //   store.commit('updateUserInfo', tmp)
+  // }
 }
-
 export default {
   namespaced: true,
   state,
   mutations,
   actions
 }
-
