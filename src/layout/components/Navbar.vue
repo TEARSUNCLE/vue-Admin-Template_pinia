@@ -1,9 +1,15 @@
 <template>
   <div class="navbar">
+    <!-- 菜单栏 -->
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
+    <!-- 面包屑 -->
     <breadcrumb class="breadcrumb-container" />
 
+    <!-- myPlugin -->
+    <myPlugin/>
+
+    <!-- 头像弹框 -->
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
@@ -36,11 +42,13 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import myPlugin from "./myPlugin.vue";
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    myPlugin
   },
   computed: {
     ...mapGetters([
@@ -53,8 +61,9 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
+      await this.$store.dispatch('user/userLogout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      this.$message.success('已退出')
     }
   }
 }
@@ -63,10 +72,14 @@ export default {
 <style lang="scss" scoped>
 .navbar {
   height: 50px;
+  line-height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
+
+  display: flex;
+  justify-content: space-around;
 
   .hamburger-container {
     line-height: 46px;
@@ -82,11 +95,11 @@ export default {
   }
 
   .breadcrumb-container {
-    float: left;
+    // float: left;
   }
 
   .right-menu {
-    float: right;
+    // float: right;
     height: 100%;
     line-height: 50px;
 
