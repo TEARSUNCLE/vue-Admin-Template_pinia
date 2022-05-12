@@ -34,6 +34,7 @@
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
+      <div>亚托克斯</div>
     </div>
   </div>
 </template>
@@ -99,10 +100,13 @@ export default {
 
   .right-menu {
     // float: right;
-    width: 23vw;
+    width: 20vw;
     height: 100%;
     line-height: 50px;
     text-align: right;
+
+    display: flex;
+    justify-content: flex-end;
 
     &:focus {
       outline: none;
