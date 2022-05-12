@@ -1,9 +1,14 @@
 import request from '@/utils/request'
 
-export function getList(params) {
+// 数据初始化
+export function initApi() {
   return request({
-    url: '/vue-admin-template/table/list',
-    method: 'get',
-    params
+    url:'/init/data',
+  })
+}
+
+export function getListApi() {
+  return request({
+    url: '/student/list',
   })
 }

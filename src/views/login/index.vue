@@ -47,7 +47,7 @@ export default {
     // }
     return {
       ruleForm: {
-        username: 'laotang',
+        username: 'admin',
         password: '123456'
       },
       loginRules: {
@@ -88,17 +88,11 @@ export default {
     handleLogin() {
       this.$refs.ruleForm.validate(async valid => {
         if (valid) {
-          try {
             // 验证完成后的操作
             this.loading = true
             await this.$store.dispatch('user/userLogin', this.ruleForm)
             this.$message.success('登录成功，正在跳转...')
             this.$router.push('/')
-          } catch (error) {
-            console.log(98,error);
-            this.$message.error('用户名或密码错误')
-            this.loading = false
-          }
         } else {
           this.$message.error('请填写用户密码')
           return false
