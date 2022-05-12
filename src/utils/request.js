@@ -1,7 +1,6 @@
 import axios from 'axios'
 import store from '@/store'
 import router from '@/router'
-import { getTimeStamp } from '@/utils/auth'
 import { Message } from 'element-ui'
 const Timeout = 3600
 // create an axios instance
@@ -11,23 +10,24 @@ const service = axios.create({
   timeout: 5000 // request timeout
 })
 
-function checkTimeOut() {
-  const dateNow = Date.now()
-  const authTime = getTimeStamp()
-  // 毫秒除以1000变成秒，要一个小时才生效
-  return (dateNow - authTime) / 1000 > Timeout
-}
+// function checkTimeOut() {
+//   const dateNow = Date.now()
+//   const authTime = getTimeStamp()
+//   // 毫秒除以1000变成秒，要一个小时才生效
+//   return (dateNow - authTime) / 1000 > Timeout
+// }
 
 // 请求拦截
 service.interceptors.request.use(req => {
   // 有token
   if (store.getters.token) {
-    if (checkTimeOut()) {
-      store.dispatch('user/userLogout')
-      router.push('/login')
-      return Promise.reject(new Error('会话已过期，请重新登录'))
-    }
-    req.headers.Authorization = `Bearer ${store.getters.token}`
+    // if (checkTimeOut()) {
+    //   store.dispatch('user/storeRemoveToken')
+    //   router.push('/login')
+    //   return Promise.reject(new Error('会话已过期，请重新登录'))
+    // }
+    // req.headers.Authorization = `Bearer ${store.getters.token}`
+    req.headers.Authorization = store.getters.token
   }
   return req
 }, error => {
@@ -37,7 +37,7 @@ service.interceptors.request.use(req => {
 // 响应拦截
 service.interceptors.response.use((res) => {
   if (res.status && (res.status === 200)) {
-    store.commit('user/setLoginTime')
+    // store.commit('user/setLoginTime')
     return res.data
   } else {
     Message.error(res.statusText)
