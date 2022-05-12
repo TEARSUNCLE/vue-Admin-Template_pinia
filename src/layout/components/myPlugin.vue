@@ -29,7 +29,7 @@ export default {
 
 <style scoped lang="scss">
 .box {
-  width: 800px;
+  width: 50vw;
   margin-right: 80px;
   display: flex;
   justify-content: space-around;

@@ -11,8 +11,7 @@ export const asyncRoutes = [
 
 ]
 
-export const constantRoutes = [
-  {
+export const constantRoutes = [{
     path: '/login',
     component: () => import('@/views/login/index'),
     hidden: true
@@ -27,13 +26,22 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
+    redirect: '/chart',
+    name: 'Dashboard',
+    meta: {
+      title: '控制面板',
+      icon: 'el-icon-setting'
+    },
+    children: [
+      {
+      path: 'chart',
+      name: 'Chart',
+      component: () => import('@/views/control/index'),
+      meta:{
+        title:'图表概括'
+      }
+    },
+  ]
   },
 
   {
@@ -41,30 +49,44 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
-    children: [
-      {
+    meta: {
+      title: '学员管理',
+      icon: 'el-icon-user'
+    },
+    children: [{
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        meta: {
+          title: '学员信息',
+          icon: ''
+        }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        meta: {
+          title: '成绩录入',
+          icon: ''
+        }
       }
     ]
   },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  {
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   // routes:constantRoutes,
   routes: [...constantRoutes]
 })

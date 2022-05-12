@@ -79,7 +79,6 @@ export default {
   box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   display: flex;
-  justify-content: space-around;
 
   .hamburger-container {
     line-height: 46px;
@@ -100,8 +99,10 @@ export default {
 
   .right-menu {
     // float: right;
+    width: 23vw;
     height: 100%;
     line-height: 50px;
+    text-align: right;
 
     &:focus {
       outline: none;
