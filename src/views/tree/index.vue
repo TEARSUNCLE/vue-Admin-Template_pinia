@@ -24,7 +24,7 @@
       <el-table-column
         prop="score"
         label="第2次成绩"
-        :formatter="formatData2"
+        :formatter="formatData"
         align="center"
       >
         <template slot-scope="{ row }">
@@ -34,7 +34,7 @@
       <el-table-column
         prop="score"
         label="第3次成绩"
-        :formatter="formatData3"
+        :formatter="formatData"
         align="center"
       >
         <template slot-scope="{ row }">
@@ -44,7 +44,7 @@
       <el-table-column
         prop="score"
         label="第4次成绩"
-        :formatter="formatData4"
+        :formatter="formatData"
         width="150"
         align="center"
       >
@@ -55,7 +55,7 @@
       <el-table-column
         prop="score"
         label="第5次成绩"
-        :formatter="formatData5"
+        :formatter="formatData"
         width="150"
         align="center"
       >
@@ -97,38 +97,6 @@ export default {
         arr.push(e);
       });
       return arr.slice(0, 1);
-    },
-    formatData2(row) {
-      let newRow = (row && row.score) || [];
-      let arr = [];
-      newRow.forEach((e) => {
-        arr.push(e);
-      });
-      return arr.slice(1, 2);
-    },
-    formatData3(row) {
-      let newRow = (row && row.score) || [];
-      let arr = [];
-      newRow.forEach((e) => {
-        arr.push(e);
-      });
-      return arr.slice(2, 3);
-    },
-    formatData4(row) {
-      let newRow = (row && row.score) || [];
-      let arr = [];
-      newRow.forEach((e) => {
-        arr.push(e);
-      });
-      return arr.slice(3, 4);
-    },
-    formatData5(row) {
-      let newRow = (row && row.score) || [];
-      let arr = [];
-      newRow.forEach((e) => {
-        arr.push(e);
-      });
-      return arr.slice(4, 5);
     },
   },
 };
