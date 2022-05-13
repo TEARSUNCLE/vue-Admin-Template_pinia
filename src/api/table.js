@@ -21,6 +21,14 @@ export function addStudentApi(data) {
   })
 }
 
+export function updateStudentApi(data) {
+  return request({
+    url:'/student/update',
+    method:'put',
+    data
+  })
+}
+
 // 获取省
 export function getProvinceApi() {
   return request({
@@ -30,21 +38,25 @@ export function getProvinceApi() {
 // 获取市
 export function getCityApi(params) {
   return request({
-    url:'/geo/city',
-    params
+    url:`geo/city/?pname=${params}`,
   })
 }
 // 获取县
-export function getCountyApi(params) {
+export function getCountyApi(params,par) {
   return request({
-    url:'/geo/county',
-    params
+    url:`/geo/county/?pname=${params}&cname=${par}`,
   })
 }
 
 export function delStudentApi(id) {
   return request({
-    url:'/student/delete/'+ id,
+    url:`/student/delete/?id=${id}`,
     method:'delete',
+  })
+}
+
+export function getOneStudentApi(id) {
+  return request({
+    url:`/student/one/?id=${id}`
   })
 }

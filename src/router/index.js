@@ -27,7 +27,7 @@ export const constantRoutes = [{
     path: '/',
     component: Layout,
     redirect: '/chart',
-    name: 'Dashboard',
+    name: 'Chart',
     meta: {
       title: '控制面板',
       icon: 'el-icon-setting'
