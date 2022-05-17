@@ -31,7 +31,7 @@ npm install
 npm run dev
 ```
 
-This will automatically open http://localhost:9528
+线上地址：http://localhost:9528
 
 ## Build
 
